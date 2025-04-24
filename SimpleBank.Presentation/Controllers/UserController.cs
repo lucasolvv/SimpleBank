@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using SimpleBank.Communication.Requests;
+using SimpleBank.Communication.Responses;
 
 namespace SimpleBank.Presentation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -12,5 +13,15 @@ namespace SimpleBank.Presentation.Controllers
         {
             return Ok($"Hello {name}!");
         }
+
+        [HttpPost("/register")]
+        [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status201Created)]
+        public IActionResult Resgister(RequestRegisterUserJson request)
+        {
+            return Created();
+        }
     }
+
+    
+   
 }
