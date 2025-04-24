@@ -13,6 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\Documents\Projetos\pessoal\api_picpay_dotnet\simpleBankApi\SimpleBank.Application\SimpleBank.Application.csproj" />
     <ProjectReference Include="..\..\..\..\..\Documents\Projetos\pessoal\api_picpay_dotnet\simpleBankApi\SimpleBank.Infra\SimpleBank.Infra.csproj" />
+    <ProjectReference Include="..\SimpleBank.Communication\SimpleBank.Communication.csproj" />
+    <ProjectReference Include="..\SimpleBank.Exceptions\SimpleBank.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>

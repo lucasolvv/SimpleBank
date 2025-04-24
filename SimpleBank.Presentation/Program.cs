@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using SimpleBank.Infra;
+using SimpleBank.Application;
 using SimpleBank.Infra.Context;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,12 +11,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// my injections 
+builder.Services.AddApplication();
+builder.Services.AddInfraStructure();
+
 var connectionString =
     builder.Configuration.GetConnectionString("SQLITE")
         ?? throw new InvalidOperationException("Connection string"
         + "'DefaultConnection' not found.");
 
-builder.Services.AddDbContext<DbConfig>(options =>
+builder.Services.AddDbContext<SimpleBankDbContext>(options =>
     options.UseSqlite(connectionString));
 var app = builder.Build();
 
@@ -22,6 +29,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
 }
 
 app.UseHttpsRedirection();
