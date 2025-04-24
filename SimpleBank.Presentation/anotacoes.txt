@@ -1,0 +1,24 @@
+﻿###Estrutura dividida em camadas
+
+- Backend
+	- proj.Application -> services e UseCases
+		-- UseCases(Regras de negocio) usam services para atividades espeficicas e gerais
+	- proj.Infra -> acesso a dados	
+	- proj.Presentation -> API
+	- Proj.Domain -> camda especifica para configurações de entidades e contratos => contrato = domain / implementação => infra 
+- Shared
+	proj.Communication -> classes usadas para as requisições (requests / responses)
+	proj.Exceptions -> Projeto para tratamento de Exceptions
+
+
+### Adicionando Injeção de dependencia dos serviços de cada projeto no program.cs 
+1. Criar classe que faça extensao de IServiceCollection para poder adicionala como serviço na montagem do app.
+2. enxergar os projetos (referencia) a partir pro projeto da API (presentation)
+
+### lindando com a configuração do banco de dados.
+
+
+
+fluxo 
+
+api recebe uma request -> o endpoint chama usecases -> usecases chama dominios ou services -> dominios chamam infra e tudo volta.
