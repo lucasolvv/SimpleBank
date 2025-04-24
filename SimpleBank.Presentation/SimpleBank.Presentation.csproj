@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Documents\Projetos\pessoal\api_picpay_dotnet\simpleBankApi\SimpleBank.Application\SimpleBank.Application.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Documents\Projetos\pessoal\api_picpay_dotnet\simpleBankApi\SimpleBank.Infra\SimpleBank.Infra.csproj" />
+  </ItemGroup>
+
+</Project>
