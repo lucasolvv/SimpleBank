@@ -8,16 +8,14 @@ namespace SimpleBank.Presentation.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
-    {     
+    public class UserController : ControllerBase    
+    {
 
         [HttpPost("/register")]
         [ProducesResponseType(typeof(ResponseCreateUserJson), StatusCodes.Status201Created)]
-        public IActionResult Resgister(RequestCreateUserJson request)
+        public IActionResult Resgister([FromBody]RequestCreateUserJson request, [FromServices]ICreateUserUseCase useCase)
         {
-            var useCase = new CreateUserUseCase();
             useCase.Execute(request);
-
             return Created();
         }
     }
