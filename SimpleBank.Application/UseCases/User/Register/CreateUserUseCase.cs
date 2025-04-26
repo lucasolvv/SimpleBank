@@ -2,19 +2,39 @@
 using SimpleBank.Communication.Responses;
 using SimpleBank.Application.Services;
 using SimpleBank.Application.Services.Criptography;
+using SimpleBank.Domain.Repositories.User;
+using Microsoft.Extensions.Options;
+using AutoMapper;
+using SimpleBank.Domain.Entities;
+using System.Threading.Tasks;
 namespace SimpleBank.Application.UseCases.User.Register
 {
-    public class CreateUserUseCase
+    public class CreateUserUseCase : ICreateUserUseCase
     {
-        public ResponseCreateUserJson Execute(RequestCreateUserJson request)
+        private readonly IUserReadOnlyRepository _userReadOnlyRepository;
+        private readonly IUserWriteOnlyRepository _userWriteOnlyRepository;
+        private readonly IMapper _mapper;
+
+        public CreateUserUseCase(
+            IUserWriteOnlyRepository userWriteOnlyRepository, 
+            IUserReadOnlyRepository userReadOnlyRepository,
+            IMapper mapper
+            )
+        {
+            _userReadOnlyRepository = userReadOnlyRepository;
+            _userWriteOnlyRepository = userWriteOnlyRepository;
+            _mapper = mapper;
+        }
+        
+        public async Task<ResponseCreateUserJson> Execute(RequestCreateUserJson request)
         {
             Validate(request);
 
-            request.Password = PasswordEncripter.Encrypt(request.Password);
-            
-            // relacionar o user com a entidade do banco
+            request.Password = PasswordEncripter.Encrypt(request.Password); // tratar entidade
 
-            // criar o user no banco
+            var user = _mapper.Map<Domain.Entities.User>(request);
+
+            await _userWriteOnlyRepository.Add(user);
 
 
             return new ResponseCreateUserJson
