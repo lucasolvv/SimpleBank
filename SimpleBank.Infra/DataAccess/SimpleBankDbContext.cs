@@ -11,8 +11,7 @@ namespace SimpleBank.Infra.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasKey(u => u.Id);
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(SimpleBankDbContext).Assembly);
         }
     }
 }
