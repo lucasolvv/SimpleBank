@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\source\repos\SimpleBank\SimpleBank\SimpleBank.Domain\SimpleBank.Domain.csproj" />
+    <ProjectReference Include="..\SimpleBank.Domain\SimpleBank.Domain.csproj" />
   </ItemGroup>
+
+
 
 </Project>

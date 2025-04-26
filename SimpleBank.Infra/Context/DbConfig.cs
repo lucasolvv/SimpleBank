@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SimpleBank.Infra.Entities;
+using SimpleBank.Domain;
+using SimpleBank.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,11 @@ namespace SimpleBank.Infra.Context
     {
         public DbConfig(DbContextOptions <DbConfig> options) : base(options) { } 
 
-        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserEntity>().HasKey(u => u.Id);
+            modelBuilder.Entity<User>().HasKey(u => u.Id);
             base.OnModelCreating(modelBuilder);
         }
     }
