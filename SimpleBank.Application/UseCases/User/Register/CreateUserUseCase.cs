@@ -29,10 +29,9 @@ namespace SimpleBank.Application.UseCases.User.Register
         public async Task<ResponseCreateUserJson> Execute(RequestCreateUserJson request)
         {
             Validate(request);
-
-            request.Password = PasswordEncripter.Encrypt(request.Password); // tratar entidade
-
+            //var userExists = await _userReadOnlyRepository.ExistActiveUserWithEmail(request.Email);
             var user = _mapper.Map<Domain.Entities.User>(request);
+            user.Password = PasswordEncripter.Encrypt(request.Password);
 
             await _userWriteOnlyRepository.Add(user);
 

@@ -3,6 +3,8 @@ using SimpleBank.Communication.Requests;
 using SimpleBank.Communication.Responses;
 using SimpleBank.Application.UseCases;
 using SimpleBank.Application.UseCases.User.Register;
+using SimpleBank.Domain.Entities;
+using SimpleBank.Application.UseCases.User;
 
 namespace SimpleBank.Presentation.Controllers
 {
@@ -17,6 +19,14 @@ namespace SimpleBank.Presentation.Controllers
         {
             useCase.Execute(request);
             return Created();
+        }
+
+        [HttpGet("/getuser/{email}")]
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
+        public IActionResult GetUser(string email, [FromServices] IgetUser getuser)
+        {
+            var user = getuser.Execute(email);
+            return Ok(user);
         }
     }
 

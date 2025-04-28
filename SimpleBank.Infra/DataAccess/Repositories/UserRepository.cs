@@ -16,7 +16,12 @@ namespace SimpleBank.Infra.DataAccess.Repositories
 
         public async Task<bool> ExistActiveUserWithEmail(string email) => 
             await _dbContext.Users.AnyAsync(user =>  user.Email.Equals(email));
-        
+
+        public async Task<User> GetUserByEmail(string email) =>
+            await _dbContext.Users
+                .FirstOrDefaultAsync(user => user.Email.Equals(email));
+
+
 
     }
 }

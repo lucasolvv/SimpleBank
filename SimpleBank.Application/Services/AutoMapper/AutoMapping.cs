@@ -13,8 +13,7 @@ namespace SimpleBank.Application.Services.AutoMapper
         private void RequestToDomain()
         {
             CreateMap<RequestCreateUserJson, Domain.Entities.User>()
-                .ForMember(domainClass => domainClass.Password, opt => opt.Ignore())
-                .ForMember(domainClass => domainClass.Document, opt => opt.Ignore());
+                .ForMember(domainClass => domainClass.Password, opt => opt.Ignore());
         }
 
 
