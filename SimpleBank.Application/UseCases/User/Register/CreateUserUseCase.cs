@@ -32,7 +32,7 @@ namespace SimpleBank.Application.UseCases.User.Register
             //var userExists = await _userReadOnlyRepository.ExistActiveUserWithEmail(request.Email);
             var user = _mapper.Map<Domain.Entities.User>(request);
             user.Password = PasswordEncripter.Encrypt(request.Password);
-
+            
             await _userWriteOnlyRepository.Add(user);
 
 
@@ -46,7 +46,9 @@ namespace SimpleBank.Application.UseCases.User.Register
         private void Validate(RequestCreateUserJson request)
         {
             var validator = new CreateUserValidator();
-            
+
+            // checar se o cpf/cnpj / email já existem
+
             var result = validator.Validate(request);
 
             if (!result.IsValid)

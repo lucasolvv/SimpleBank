@@ -8,7 +8,7 @@ namespace SimpleBank.Application.Services
 {
     public class CpfOrCnpjValidator
     {
-        public bool IsValid(string document)
+        public static bool IsValid(string document)
         {
             var cleanedDocument = new string(document.Where(char.IsDigit).ToArray());
             if (cleanedDocument.Length == 11)
