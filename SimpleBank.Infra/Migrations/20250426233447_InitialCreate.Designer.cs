@@ -10,9 +10,9 @@ using SimpleBank.Infra.Context;
 
 namespace SimpleBank.Infra.Migrations
 {
-    [DbContext(typeof(DbConfig))]
-    [Migration("20250424005925_InitialCreate2")]
-    partial class InitialCreate2
+    [DbContext(typeof(SimpleBankDbContext))]
+    [Migration("20250426233447_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,31 +20,31 @@ namespace SimpleBank.Infra.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.4");
 
-            modelBuilder.Entity("SimpleBank.Infra.Entities.UserEntity", b =>
+            modelBuilder.Entity("SimpleBank.Domain.Entities.User", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("CpfCnpj")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("AccountType")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Document")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Role")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

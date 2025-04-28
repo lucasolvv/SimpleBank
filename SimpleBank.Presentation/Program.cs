@@ -13,15 +13,8 @@ builder.Services.AddSwaggerGen();
 
 // my injections 
 builder.Services.AddApplication();
-builder.Services.AddInfraStructure();
+builder.Services.AddInfraStructure(builder.Configuration);
 
-var connectionString =
-    builder.Configuration.GetConnectionString("SQLITE")
-        ?? throw new InvalidOperationException("Connection string"
-        + "'DefaultConnection' not found.");
-
-builder.Services.AddDbContext<SimpleBankDbContext>(options =>
-    options.UseSqlite(connectionString));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

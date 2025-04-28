@@ -1,14 +1,17 @@
 ﻿namespace SimpleBank.Domain.Entities
 {
-    public class User
+    public enum AccountType
     {
-        public string Id { get; set; }
-        public string FullName { get; set; }
+        Common, // usuario simples
+        Merchant // lojista
+    }
+    public class User : EntityBase
+    {
+        public string Name { get; set; }
         public string Email { get; set; }
-        public string CpfCnpj { get; set; }
-        public string PasswordHash { get; set; }
-        public string Role { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public string Document { get; set; }
+        public string Password { get; set; }
+        public AccountType AccountType { get; set; }
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
 }

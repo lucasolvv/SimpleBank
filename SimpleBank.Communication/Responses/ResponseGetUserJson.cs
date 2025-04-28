@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleBank.Application.User.Services
+namespace SimpleBank.Communication.Responses
 {
-    internal class UserSevice
+    internal class ResponseGetUserJson
     {
     }
 }

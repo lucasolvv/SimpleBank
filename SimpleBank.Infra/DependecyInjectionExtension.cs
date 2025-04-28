@@ -1,22 +1,30 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleBank.Domain.Repositories.User;
+using SimpleBank.Infra.Context;
+using SimpleBank.Infra.DataAccess.Repositories;
 
 namespace SimpleBank.Infra
 {
     public static class DependecyInjectionExtension
     {
-        public static IServiceCollection AddInfraStructure(this IServiceCollection services)
+        public static void AddInfraStructure(this IServiceCollection services, IConfiguration configuration)
         {
-            return services;
+            AddDbContext_SqLite(services, configuration);
+            AddRepositories(services);
         }
 
-        //private void AddDbContext(IServiceCollection services)
-        //{
+        private static void AddDbContext_SqLite(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<SimpleBankDbContext>(options =>
+                options.UseSqlite(configuration.GetConnectionString("SQLITE")));
+        }
 
-        //}
-
-        //private void AddRepositories(IServiceCollection services)
-        //{
-
-        //}
+        private static void AddRepositories(IServiceCollection services)
+        {
+            services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+            services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+        }
     }
 }
