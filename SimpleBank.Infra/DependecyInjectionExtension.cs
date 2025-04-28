@@ -18,7 +18,8 @@ namespace SimpleBank.Infra
         private static void AddDbContext_SqLite(IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<SimpleBankDbContext>(options =>
-                options.UseSqlite(configuration.GetConnectionString("SQLITE")));
+                options.UseSqlite(configuration.GetConnectionString("SQLITE"))
+                .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information));
         }
 
         private static void AddRepositories(IServiceCollection services)
