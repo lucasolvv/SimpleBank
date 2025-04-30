@@ -26,6 +26,9 @@ namespace SimpleBank.Infra.DataAccess.Repositories
             await _dbContext.Users
                 .FirstOrDefaultAsync(user => user.Email.Equals(email));
 
+        public async Task<bool> ExistActiveUserWithDocument(string document) =>
+            await _dbContext.Users.AnyAsync(user => user.Document.Equals(document));
+
 
 
     }

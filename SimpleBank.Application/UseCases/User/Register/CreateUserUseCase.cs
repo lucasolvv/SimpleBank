@@ -28,7 +28,7 @@ namespace SimpleBank.Application.UseCases.User.Register
         
         public async Task<ResponseCreateUserJson> Execute(RequestCreateUserJson request)
         {
-            Validate(request);
+            await Validate(request);
             //var userExists = await _userReadOnlyRepository.ExistActiveUserWithEmail(request.Email);
             var user = _mapper.Map<Domain.Entities.User>(request);
             user.Password = PasswordEncripter.Encrypt(request.Password);
@@ -43,13 +43,17 @@ namespace SimpleBank.Application.UseCases.User.Register
             };
         }
 
-        private void Validate(RequestCreateUserJson request)
+        private async Task Validate(RequestCreateUserJson request)
         {
             var validator = new CreateUserValidator();
-
-            // checar se o cpf/cnpj / email já existem
-
             var result = validator.Validate(request);
+
+            var emailExists = await _userReadOnlyRepository.ExistActiveUserWithEmail(request.Email);
+            var documentExists = await _userReadOnlyRepository.ExistActiveUserWithDocument(request.Document);
+
+            if (emailExists) result.Errors.Add(new FluentValidation.Results.ValidationFailure("Email", "Email already registered"));            
+            if (documentExists) result.Errors.Add(new FluentValidation.Results.ValidationFailure("Document", "Document already registered"));
+            
 
             if (!result.IsValid)
             {
