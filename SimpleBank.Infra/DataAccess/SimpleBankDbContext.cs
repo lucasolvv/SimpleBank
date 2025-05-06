@@ -11,7 +11,15 @@ namespace SimpleBank.Infra.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+                .Property(u => u.AccountType)
+                .HasConversion(
+                    value => value.ToString(), // Converte enum para string ao salvar
+                    value => (AccountType)Enum.Parse(typeof(AccountType), value) // Converte string para enum ao carregar
+                );
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(SimpleBankDbContext).Assembly);
+            
         }
     }
 }

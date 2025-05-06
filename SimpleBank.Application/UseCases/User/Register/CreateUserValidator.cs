@@ -31,16 +31,9 @@ namespace SimpleBank.Application.UseCases.User.Register
             .WithMessage("Invalid account type.");
 
             RuleFor(x => x.Document)
-                .Must(ValidateCpf)
+                .Must(CpfOrCnpjValidator.IsValid)
                 .WithMessage("Invalid Document number.");
 
-        }
-
-        private bool ValidateCpf(string cpf)
-        {
-            CpfOrCnpjValidator cpfValidator = new CpfOrCnpjValidator();
-            return cpfValidator.IsValid(cpf);
-            
         }
     }
 }

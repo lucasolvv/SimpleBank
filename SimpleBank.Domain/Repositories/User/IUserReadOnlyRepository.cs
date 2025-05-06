@@ -4,5 +4,6 @@
     {
         public Task<Entities.User> GetUserByEmail(string email);
         public Task<bool> ExistActiveUserWithEmail(string email);
+        public Task<bool> ExistActiveUserWithDocument(string document);
     }
 }
