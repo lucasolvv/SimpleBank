@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using SimpleBank.Application.Services;
 using SimpleBank.Communication.Requests;
+using SimpleBank.Domain.Entities;
 namespace SimpleBank.Application.UseCases.User.Register
 {
     public class CreateUserValidator : AbstractValidator<RequestCreateUserJson>
@@ -22,6 +24,15 @@ namespace SimpleBank.Application.UseCases.User.Register
                 .WithMessage("Invalid email format.");
 
             RuleFor(x => x.Document).NotEmpty().WithMessage("Document number is required.");
+            
+            RuleFor(x => x.AccountType)
+            .NotEmpty()
+            .Must(value => Enum.TryParse<AccountType>(value, true, out _))
+            .WithMessage("Invalid account type.");
+
+            RuleFor(x => x.Document)
+                .Must(CpfOrCnpjValidator.IsValid)
+                .WithMessage("Invalid Document number.");
 
         }
     }

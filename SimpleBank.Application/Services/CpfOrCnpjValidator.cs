@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleBank.Application.Services
 {
-    public class CpfOrCnpjCleaner
+    public class CpfOrCnpjValidator
     {
         public static bool IsValid(string document)
         {
