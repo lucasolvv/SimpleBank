@@ -18,7 +18,6 @@
     <ProjectReference Include="..\SimpleBank.Application\SimpleBank.Application.csproj" />
     <ProjectReference Include="..\SimpleBank.Communication\SimpleBank.Communication.csproj" />
     <ProjectReference Include="..\SimpleBank.Domain\SimpleBank.Domain.csproj" />
-    <ProjectReference Include="..\SimpleBank.Exceptions\SimpleBank.Exceptions.csproj" />
     <ProjectReference Include="..\SimpleBank.Infra\SimpleBank.Infra.csproj" />
   </ItemGroup>
 
