@@ -58,7 +58,7 @@ namespace SimpleBank.Application.UseCases.User.Register
             if (!result.IsValid)
             {
                 var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
-                throw new Exception(string.Join(", ", errors));
+                throw new HttpResponseException(string.Join(", ", errors));
             }
         }
     }
