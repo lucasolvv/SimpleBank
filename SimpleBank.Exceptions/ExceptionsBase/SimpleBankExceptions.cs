@@ -2,11 +2,9 @@
 {
     public class SimpleBankExceptions : Exception
     {
-        public SimpleBankExceptions(string message) : base(message)
+        public SimpleBankExceptions()
         {
-        }
-        public SimpleBankExceptions(string message, Exception innerException) : base(message, innerException)
-        {
+
         }
 
     }
