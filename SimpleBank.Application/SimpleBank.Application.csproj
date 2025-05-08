@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SimpleBank.Communication\SimpleBank.Communication.csproj" />
     <ProjectReference Include="..\SimpleBank.Domain\SimpleBank.Domain.csproj" />
+    <ProjectReference Include="..\SimpleBank.Exceptions\SimpleBank.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>
