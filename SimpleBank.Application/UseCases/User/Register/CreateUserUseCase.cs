@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using AutoMapper;
 using SimpleBank.Domain.Entities;
 using System.Threading.Tasks;
+using SimpleBank.Exceptions.ExceptionsBase;
 namespace SimpleBank.Application.UseCases.User.Register
 {
     public class CreateUserUseCase : ICreateUserUseCase
@@ -29,7 +30,6 @@ namespace SimpleBank.Application.UseCases.User.Register
         public async Task<ResponseCreateUserJson> Execute(RequestCreateUserJson request)
         {
             await Validate(request);
-            //var userExists = await _userReadOnlyRepository.ExistActiveUserWithEmail(request.Email);
             var user = _mapper.Map<Domain.Entities.User>(request);
             user.Password = PasswordEncripter.Encrypt(request.Password);
             
@@ -58,7 +58,7 @@ namespace SimpleBank.Application.UseCases.User.Register
             if (!result.IsValid)
             {
                 var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
-                throw new Exception(string.Join(", ", errors));
+                throw new ErrorOnValidationException(errors);
             }
         }
     }
