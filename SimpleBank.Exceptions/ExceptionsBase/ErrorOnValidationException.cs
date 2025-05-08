@@ -2,11 +2,11 @@
 {
     public class ErrorOnValidationException : SimpleBankExceptions
     {
-        public List<Exception> error { get; set; } = new List<Exception>();
+        public List<string> ErrorMessages;
 
-        public ErrorOnValidationException(string message) : base(message)
+        public ErrorOnValidationException(List<string> errors)
         {
-            error.Add(new Exception(message));
+            ErrorMessages = errors;
         }
     }
 }
