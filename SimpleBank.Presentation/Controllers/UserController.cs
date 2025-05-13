@@ -15,10 +15,10 @@ namespace SimpleBank.Presentation.Controllers
 
         [HttpPost("/register")]
         [ProducesResponseType(typeof(ResponseCreateUserJson), StatusCodes.Status201Created)]
-        public IActionResult Resgister([FromBody]RequestCreateUserJson request, [FromServices]ICreateUserUseCase useCase)
+        public async Task<IActionResult> Resgister([FromBody]RequestCreateUserJson request, [FromServices]ICreateUserUseCase useCase)
         {
-            useCase.Execute(request);
-            return Created();
+            var result = await useCase.Execute(request);
+            return Created(string.Empty, result);
         }
 
         [HttpGet("/getuser/{email}")]
