@@ -3,13 +3,8 @@ using SimpleBank.Communication.Requests;
 
 namespace CommonTestUtilities.Resquests
 {
-    public class RequestCreateCommonUserJsonBuilder
+    public class RequestCreateUserJsonBuilder
     {   
-        public enum accountTypes
-        {
-            Common,
-            Merchant
-        }
         public static RequestCreateUserJson Build()
         {
             return new Faker<RequestCreateUserJson>()
@@ -21,4 +16,9 @@ namespace CommonTestUtilities.Resquests
                 .Generate();
         }
     }
+        public enum accountTypes
+        {
+            Common,
+            Merchant
+        }
 }
