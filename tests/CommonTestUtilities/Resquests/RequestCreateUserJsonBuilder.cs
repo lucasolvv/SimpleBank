@@ -3,9 +3,13 @@ using SimpleBank.Communication.Requests;
 
 namespace CommonTestUtilities.Resquests
 {
-    public class RequestCreateUserJsonBuilder
-    {
-        public
+    public class RequestCreateCommonUserJsonBuilder
+    {   
+        public enum accountTypes
+        {
+            Common,
+            Merchant
+        }
         public static RequestCreateUserJson Build()
         {
             return new Faker<RequestCreateUserJson>()
@@ -13,7 +17,7 @@ namespace CommonTestUtilities.Resquests
                 .RuleFor(x => x.Password, f => f.Internet.Password(8))
                 .RuleFor(x => x.Email, f => f.Internet.Email())
                 .RuleFor(x => x.Document, f => f.Random.Replace("###.###.###-##"))
-                .RuleFor(x => x.AccountType, f => f.PickRandom<>())
+                .RuleFor(x => x.AccountType, f => f.PickRandom<accountTypes>().ToString())
                 .Generate();
         }
     }
