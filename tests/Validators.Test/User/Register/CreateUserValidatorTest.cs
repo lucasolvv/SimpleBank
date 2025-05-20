@@ -2,6 +2,8 @@
 using FluentValidation.TestHelper;
 using SimpleBank.Application.UseCases.User.Register;
 using SimpleBank.Communication.Requests;
+using CommonTestUtilities.Resquests;
+using Shouldly;
 
 namespace SimpleBank.Tests.Validators.User.Register
 {
@@ -12,6 +14,14 @@ namespace SimpleBank.Tests.Validators.User.Register
         public CreateUserValidatorTest()
         {
             _validator = new CreateUserValidator();
+        }
+
+        [Fact]
+        public void Success()
+        {
+            var request = RequestCreateUserJsonBuilder.Build();
+            var result = _validator.Validate(request);
+            result.ShouldNotBeNull();
         }
 
         [Fact]
