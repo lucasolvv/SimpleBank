@@ -27,70 +27,70 @@ namespace SimpleBank.Tests.Validators.User.Register
         [Fact]
         public void Should_Have_Error_When_Name_Is_Empty()
         {
-            var model = new RequestCreateUserJson { Name = "" };
-            var result = _validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(x => x.Name);
+            var request = RequestCreateUserJsonBuilder.Build();
+            request.Name = string.Empty;    
+            var result = _validator.TestValidate(request);
+            result.IsValid.ShouldBeFalse();
         }
 
         [Fact]
         public void Should_Have_Error_When_Name_Is_Too_Short()
         {
-            var model = new RequestCreateUserJson { Name = "A" };
-            var result = _validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(x => x.Name);
+            var request = RequestCreateUserJsonBuilder.Build();
+            request.Name = "F";
+            var result = _validator.TestValidate(request);
+            result.IsValid.ShouldBeFalse();
         }
 
         [Fact]
         public void Should_Have_Error_When_Password_Is_Empty()
         {
-            var model = new RequestCreateUserJson { Password = "" };
-            var result = _validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(x => x.Password);
+            var request = RequestCreateUserJsonBuilder.Build();
+            request.Password = string.Empty;
+            var result = _validator.TestValidate(request);
+            result.IsValid.ShouldBeFalse(); 
         }
 
         [Fact]
         public void Should_Have_Error_When_Password_Is_Weak()
         {
-            var model = new RequestCreateUserJson { Password = "abc" };
-            var result = _validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(x => x.Password);
+            var request = RequestCreateUserJsonBuilder.Build();
+            request.Password = "1234";
+            var result = _validator.TestValidate(request);
+            result.IsValid.ShouldBeFalse();
         }
 
         [Fact]
         public void Should_Have_Error_When_Email_Is_Invalid()
         {
-            var model = new RequestCreateUserJson { Email = "invalid-email" };
-            var result = _validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(x => x.Email);
+            var request = RequestCreateUserJsonBuilder.Build();
+            request.Email = "invalid-email1111";
+            var result = _validator.TestValidate(request);
+            result.IsValid.ShouldBeFalse();
         }
 
         [Fact]
         public void Should_Have_Error_When_Document_Is_Empty()
         {
-            var model = new RequestCreateUserJson { Document = "" };
-            var result = _validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(x => x.Document);
+            var request = RequestCreateUserJsonBuilder.Build();
+            request.Document = string.Empty;
+            var result = _validator.TestValidate(request);
+            result.IsValid.ShouldBeFalse();
         }
 
         [Fact]
         public void Should_Have_Error_When_AccountType_Is_Invalid()
         {
-            var model = new RequestCreateUserJson { AccountType = "InvalidType" };
-            var result = _validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(x => x.AccountType);
+            var request = RequestCreateUserJsonBuilder.Build();
+            request.AccountType = "InvalidAccountType";
+            var result = _validator.TestValidate(request);
+            result.IsValid.ShouldBeFalse();
         }
 
         [Fact]
         public void Should_Not_Have_Error_When_Model_Is_Valid()
         {
-            var model = new RequestCreateUserJson
-            {
-                Name = "João Silva",
-                Password = "Senha123",
-                Email = "joao@email.com",
-                Document = "123.456.789-09", // Supondo que seja válido
-                AccountType = "common"
-            };
+            var model = RequestCreateUserJsonBuilder.Build();
             var result = _validator.TestValidate(model);
             result.ShouldNotHaveAnyValidationErrors();
         }
