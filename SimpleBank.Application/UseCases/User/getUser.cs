@@ -1,13 +1,5 @@
-﻿using SimpleBank.Application.Services.Criptography;
-using SimpleBank.Communication.Requests;
-using SimpleBank.Communication.Responses;
-using SimpleBank.Domain.Entities;
-using SimpleBank.Domain.Repositories.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SimpleBank.Domain.Repositories.User;
+
 
 namespace SimpleBank.Application.UseCases.User
 {
@@ -23,9 +15,13 @@ namespace SimpleBank.Application.UseCases.User
         {
 
             var user = await _userReadOnlyRepository.GetUserByEmail(email);
-
-
             return user;
+        }
+
+        public async Task<IEnumerable<Domain.Entities.User>> getAllUsers()
+        {
+            var users = await _userReadOnlyRepository.GetAllUsers();
+            return users;
         }
     }
 }
