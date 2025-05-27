@@ -17,16 +17,24 @@ namespace SimpleBank.Presentation.Controllers
         [ProducesResponseType(typeof(ResponseCreateUserJson), StatusCodes.Status201Created)]
         public async Task<IActionResult> Resgister([FromBody]RequestCreateUserJson request, [FromServices]ICreateUserUseCase useCase)
         {
-            var result = await useCase.Execute(request);
-            return Created(string.Empty, result);
+            useCase.Execute(request);
+            return Created();
         }
 
         [HttpGet("/getuser/{email}")]
         [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
-        public IActionResult GetUser(string email, [FromServices] IgetUser getuser)
+        public async Task<IActionResult> GetUser(string email, [FromServices] IgetUser getuser)
         {
-            var user = getuser.Execute(email);
+            var user = await getuser.Execute(email);
             return Ok(user);
+        }
+
+        [HttpGet("/getallusers")]
+        [ProducesResponseType(typeof(IEnumerable<User>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllUsers([FromServices] IgetUser getuser)
+        {
+            var users = await getuser.getAllUsers();
+            return Ok(users);
         }
     }
 

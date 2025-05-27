@@ -29,7 +29,12 @@ namespace SimpleBank.Infra.DataAccess.Repositories
         public async Task<bool> ExistActiveUserWithDocument(string document) =>
             await _dbContext.Users.AnyAsync(user => user.Document.Equals(document));
 
-
+        public async Task<IEnumerable<User>> GetAllUsers()
+        {
+            return await _dbContext.Users
+                .AsNoTracking()
+                .ToListAsync();
+        }
 
     }
 }
